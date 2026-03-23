@@ -143,6 +143,10 @@ jobs:
   snyk:
     name: 🛡️ Snyk Security
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
 
     steps:
       - name: ⬇️  Checkout
@@ -189,14 +193,14 @@ jobs:
 
       # ── Upload SARIF to GitHub Security → Code Scanning tab ─────────────
       - name: 📤  Upload Snyk dep SARIF
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         if: always()
         with:
           sarif_file: snyk-deps.sarif
           category: snyk-dependencies
 
       - name: 📤  Upload Snyk code SARIF
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         if: always()
         with:
           sarif_file: snyk-code.sarif
@@ -213,6 +217,10 @@ jobs:
   semgrep:
     name: 🔎 Semgrep SAST
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
     container:
       image: semgrep/semgrep
 
@@ -236,7 +244,7 @@ jobs:
 
       # ── Upload to GitHub Security tab ────────────────────────────────────
       - name: 📤  Upload Semgrep SARIF
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         if: always()
         with:
           sarif_file: semgrep.sarif
@@ -263,16 +271,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🔬  Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: javascript
           queries: security-extended, security-and-quality
 
       - name: 🏗️  Autobuild
-        uses: github/codeql-action/autobuild@v3
+        uses: github/codeql-action/autobuild@v4
 
       - name: 🔬  Analyze
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
         with:
           category: codeql-javascript
 
