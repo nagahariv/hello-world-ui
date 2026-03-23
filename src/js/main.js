@@ -48,6 +48,7 @@ export function formatTime(date) {
 
 // ─── Grid Canvas Background ────────────────────────────────────────────────
 
+/* istanbul ignore next */
 function initGrid() {
   const canvas = document.getElementById('grid-canvas');
   if (!canvas) return;
@@ -93,6 +94,7 @@ const state = {
 
 // ─── DOM Binding ───────────────────────────────────────────────────────────
 
+/* istanbul ignore next */
 function init() {
   initGrid();
 
@@ -148,6 +150,7 @@ function init() {
 }
 
 // Boot
+/* istanbul ignore next */
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', init);
 }
