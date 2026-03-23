@@ -25,7 +25,6 @@
   "jest": {
     "testEnvironment": "jsdom",
     "transform": {},
-    "extensionsToTreatAsEsm": [".js"],
     "collectCoverageFrom": ["src/js/**/*.js"],
     "coverageThreshold": {
       "global": {
