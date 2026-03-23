@@ -54,16 +54,11 @@ function initGrid() {
   const ctx = canvas.getContext('2d');
   const CELL = 48;
 
-  function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-    draw();
-  }
-
+  // draw() defined before resize() — satisfies no-use-before-define
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = 'rgba(255,255,255,0.05)';
-    ctx.lineWidth   = 1;
+    ctx.lineWidth = 1;
 
     for (let x = 0; x < canvas.width; x += CELL) {
       ctx.beginPath();
@@ -79,6 +74,12 @@ function initGrid() {
     }
   }
 
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    draw();
+  }
+
   window.addEventListener('resize', resize);
   resize();
 }
@@ -86,8 +87,8 @@ function initGrid() {
 // ─── App State ─────────────────────────────────────────────────────────────
 
 const state = {
-  greetCount:  0,
-  totalChars:  0,
+  greetCount: 0,
+  totalChars: 0,
 };
 
 // ─── DOM Binding ───────────────────────────────────────────────────────────
@@ -95,33 +96,32 @@ const state = {
 function init() {
   initGrid();
 
-  const input   = document.getElementById('name-input');
-  const btn     = document.getElementById('greet-btn');
-  const output  = document.getElementById('greeting-output');
+  const input = document.getElementById('name-input');
+  const btn = document.getElementById('greet-btn');
+  const output = document.getElementById('greeting-output');
   const countEl = document.getElementById('greet-count');
-  const charEl  = document.getElementById('char-count');
-  const timeEl  = document.getElementById('time-display');
+  const charEl = document.getElementById('char-count');
+  const timeEl = document.getElementById('time-display');
 
-  // Live clock
   function tickClock() {
     timeEl.textContent = formatTime(new Date());
   }
   tickClock();
   setInterval(tickClock, 1000);
 
-  // Track characters typed
   input.addEventListener('input', () => {
     state.totalChars += 1;
     charEl.textContent = state.totalChars;
   });
 
-  // Greet on button click
   btn.addEventListener('click', () => {
     const name = input.value.trim();
     if (!name) {
       input.focus();
       input.style.borderColor = 'rgba(255,80,80,0.6)';
-      setTimeout(() => { input.style.borderColor = ''; }, 800);
+      setTimeout(() => {
+        input.style.borderColor = '';
+      }, 800);
       return;
     }
 
@@ -141,8 +141,8 @@ function init() {
     input.focus();
   });
 
-  // Also greet on Enter key
-  input.addEventListener('keydown', e => {
+  // arrow-parens: wrap single arg in parens
+  input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') btn.click();
   });
 }
