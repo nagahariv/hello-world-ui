@@ -1,0 +1,39 @@
+{
+  "name": "hello-world-ui",
+  "version": "1.0.0",
+  "description": "Hello World — Pure JavaScript UI with full CI quality pipeline",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint \"src/**/*.js\"",
+    "lint:fix": "eslint \"src/**/*.js\" --fix",
+    "format": "prettier --write \"**/*.{js,css,html}\" --ignore-path .prettierignore",
+    "format:check": "prettier --check \"**/*.{js,css,html}\" --ignore-path .prettierignore",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "test:coverage": "node --experimental-vm-modules node_modules/.bin/jest --coverage",
+    "audit": "npm audit --audit-level=moderate",
+    "validate": "npm run lint && npm run format:check && npm run test"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-security": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "prettier": "^3.2.5"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "transform": {},
+    "extensionsToTreatAsEsm": [".js"],
+    "collectCoverageFrom": ["src/js/**/*.js"],
+    "coverageThreshold": {
+      "global": {
+        "lines": 70,
+        "functions": 70,
+        "branches": 60,
+        "statements": 70
+      }
+    }
+  }
+}

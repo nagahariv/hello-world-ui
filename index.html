@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="src/css/style.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <canvas id="grid-canvas"></canvas>
+
+  <main class="container">
+    <div class="badge">
+      <span class="dot"></span>
+      <span>v1.0.0 — Pure JavaScript</span>
+    </div>
+
+    <h1 class="headline">
+      <span class="line" data-text="Hello,">Hello,</span>
+      <span class="line accent" data-text="World.">World.</span>
+    </h1>
+
+    <p class="subtext">
+      A production-grade JavaScript UI scaffold — linted,<br />
+      tested, and secured by a unified CI pipeline.
+    </p>
+
+    <div class="input-row">
+      <input
+        id="name-input"
+        type="text"
+        placeholder="Enter your name…"
+        maxlength="30"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button id="greet-btn">Greet</button>
+    </div>
+
+    <div id="greeting-output" class="greeting-output" aria-live="polite"></div>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-value" id="greet-count">0</span>
+        <span class="stat-label">Greetings</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <span class="stat-value" id="char-count">0</span>
+        <span class="stat-label">Characters typed</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <span class="stat-value" id="time-display">--:--</span>
+        <span class="stat-label">Local time</span>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span>Built with pure JS · No frameworks · No dependencies</span>
+  </footer>
+
+  <script type="module" src="src/js/main.js"></script>
+</body>
+</html>
