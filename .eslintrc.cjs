@@ -1,7 +1,6 @@
 module.exports = {
   env: { browser: true, es2021: true, jest: true },
-  extends: ['airbnb-base', 'plugin:security/recommended'],
-  plugins: ['security'],
+  extends: ['airbnb-base'],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   rules: {
     'no-eval': 'error',
