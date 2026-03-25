@@ -18,12 +18,6 @@ concurrency:
   cancel-in-progress: true
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Shared environment
-# ─────────────────────────────────────────────────────────────────────────────
-env:
-  NODE_VERSION: '25'
-
-# ─────────────────────────────────────────────────────────────────────────────
 # JOBS
 # ─────────────────────────────────────────────────────────────────────────────
 jobs:
@@ -32,17 +26,20 @@ jobs:
   # ║  JOB 1 — ESLint + Prettier (Linting & Formatting)                      ║
   # ╚══════════════════════════════════════════════════════════════════════════╝
   lint:
-    name: 🔍 Lint & Format
+    name: 🔍 Lint & Format (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['20', '25']
 
     steps:
       - name: ⬇️  Checkout
         uses: actions/checkout@v4
 
-      - name: 🟢  Setup Node ${{ env.NODE_VERSION }}
+      - name: 🟢  Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ matrix.node-version }}
           
 
       - name: 📦  Install dependencies
@@ -61,18 +58,21 @@ jobs:
   # ║  JOB 2 — Jest (Unit Tests + Coverage)                                  ║
   # ╚══════════════════════════════════════════════════════════════════════════╝
   test:
-    name: 🧪 Unit Tests
+    name: 🧪 Unit Tests (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
     needs: lint   # only run tests if linting passes
+    strategy:
+      matrix:
+        node-version: ['20', '25']
 
     steps:
       - name: ⬇️  Checkout
         uses: actions/checkout@v4
 
-      - name: 🟢  Setup Node ${{ env.NODE_VERSION }}
+      - name: 🟢  Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ matrix.node-version }}
           
 
       - name: 📦  Install dependencies
@@ -87,7 +87,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: coverage-report
+          name: coverage-report-node-${{ matrix.node-version }}
           path: coverage/
           retention-days: 14
 
@@ -104,17 +104,20 @@ jobs:
   # ║  JOB 3 — npm audit (Dependency Vulnerability Scan)                     ║
   # ╚══════════════════════════════════════════════════════════════════════════╝
   npm-audit:
-    name: 📦 npm Audit
+    name: 📦 npm Audit (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['20', '25']
 
     steps:
       - name: ⬇️  Checkout
         uses: actions/checkout@v4
 
-      - name: 🟢  Setup Node ${{ env.NODE_VERSION }}
+      - name: 🟢  Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ matrix.node-version }}
           
 
       - name: 📦  Install dependencies
@@ -152,10 +155,10 @@ jobs:
       - name: ⬇️  Checkout
         uses: actions/checkout@v4
 
-      - name: 🟢  Setup Node ${{ env.NODE_VERSION }}
+      - name: 🟢  Setup Node 25
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: '25'
           
 
       - name: 📦  Install dependencies
